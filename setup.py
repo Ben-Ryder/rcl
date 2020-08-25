@@ -9,7 +9,7 @@ setuptools.setup(
     description='A simple command line wrapper for rclone focused on easy folder syncing',
     keywords=['rclone', 'rclone-wrapper'],
     url='https://github.com/Ben-Ryder/rcl',
-    download_url='https://github.com/Ben-Ryder/rcl/archive/v_01.tar.gz',
+    download_url='https://github.com/Ben-Ryder/rcl/archive/v0.1.tar.gz',
     py_modules=['rcl'],
     install_requires=[
         'Click',
