@@ -1,5 +1,7 @@
 import setuptools
 
+with open("README.md", "r") as fh:
+    long_description = fh.read()
 
 setuptools.setup(
     name='rcl',
@@ -7,6 +9,8 @@ setuptools.setup(
     author='Ben Ryder',
     author_email='dev@benryder.me',
     description='A simple command line wrapper for rclone focused on easy folder syncing',
+    long_description=long_description,
+    long_description_content_type="text/markdown",
     keywords=['rclone', 'rclone-wrapper'],
     url='https://github.com/Ben-Ryder/rcl',
     download_url='https://github.com/Ben-Ryder/rcl/archive/v0.1.tar.gz',
