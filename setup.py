@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name='rcl',
-    version='0.1',
+    version='0.1.1',
     author='Ben Ryder',
     author_email='dev@benryder.me',
     description='A simple command line wrapper for rclone focused on easy folder syncing',
@@ -13,7 +13,7 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     keywords=['rclone', 'rclone-wrapper'],
     url='https://github.com/Ben-Ryder/rcl',
-    download_url='https://github.com/Ben-Ryder/rcl/archive/v0.1.tar.gz',
+    download_url='https://github.com/Ben-Ryder/rcl/archive/v0.1.1.tar.gz',
     py_modules=['rcl'],
     install_requires=[
         'Click',
