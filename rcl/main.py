@@ -55,6 +55,13 @@ def list_entries():
         click.echo("\n")
 
 
+@click.command('config')
+def open_config():
+    """Open the config file ~/.rcl-config using the editor set in config. Default editor is 'nano'."""
+    config = helpers.load_config()
+    os.system("%s %s" % (config['editor'], helpers.CONFIG_FILE))
+
+
 @click.command()
 @click.argument('entry_id')
 @click.option('--dry/--execute', default=False, help='Run rclone sync with --dry-run flag.')
@@ -99,6 +106,7 @@ cli.add_command(list_entries)
 cli.add_command(pull)
 cli.add_command(push)
 cli.add_command(diff)
+cli.add_command(open_config)
 
 
 if __name__ == '__main__':

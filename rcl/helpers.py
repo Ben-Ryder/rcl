@@ -3,7 +3,7 @@ import toml
 
 
 CONFIG_FILE = os.path.expanduser("~") + "/.rcl-config"
-DEFAULT_CONFIG = {'entries': {}}
+DEFAULT_CONFIG = {'editor': 'nano', 'entries': {}}
 
 
 def check_install():
