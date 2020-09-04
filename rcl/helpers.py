@@ -3,12 +3,12 @@ import toml
 
 
 CONFIG_FILE = os.path.expanduser("~") + "/.rcl-config"
-BASE_CONFIG = {'entries': {}}
+DEFAULT_CONFIG = {'entries': {}}
 
 
 def check_install():
     if not os.path.isfile(CONFIG_FILE):
-        save_config(BASE_CONFIG)
+        save_config(DEFAULT_CONFIG)
 
 
 def save_config(config):
