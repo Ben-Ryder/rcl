@@ -43,16 +43,22 @@ def remove(entry_id):
         click.echo("ERROR: No entry found with id: %s." % entry_id)
 
 
-@click.command('list')
-def list_entries():
-    """List all entries."""
+@click.command('view')
+@click.argument('entry_id', default="*")
+def view_entries(entry_id):
+    """View all entries or view a specific entry by using its ENTRY_ID."""
     config = helpers.load_config()
 
-    click.echo('\n==== Entries ====\n')
-    for entry_id, entry_data in config['entries'].items():
-        click.echo("[%s]" % entry_id)
-        echo_data(entry_data)
-        click.echo("\n")
+    if entry_id == "*":
+        click.echo('\n==== Entries ====\n')
+        for entry_id, entry_data in config['entries'].items():
+            click.echo("[%s]" % entry_id)
+            echo_data(entry_data)
+            click.echo("\n")
+
+    else:
+        click.echo("[entries.%s]" % entry_id)
+        echo_data(config['entries'][entry_id])
 
 
 @click.command('config')
@@ -102,7 +108,7 @@ def diff(entry_id):
 
 cli.add_command(add)
 cli.add_command(remove)
-cli.add_command(list_entries)
+cli.add_command(view_entries)
 cli.add_command(pull)
 cli.add_command(push)
 cli.add_command(diff)
