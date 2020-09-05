@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import os
+import platform
 import pkg_resources
 
 import click
@@ -23,8 +24,13 @@ def cli():
 @click.command('setup')
 def setup():
     """Install rclone and run the initial config setup."""
-    os.system("curl https://rclone.org/install.sh | sudo bash")
-    os.system("rclone config")
+    operating_system = platform.system()
+    if operating_system != "Linux" or operating_system == "Darwin":
+        os.system("curl https://rclone.org/install.sh | sudo bash")
+        os.system("rclone config")
+    else:
+        click.echo("Your operating system does not support rcl's automated rclone install. \n"
+                   "To install rclone refer to the documentation here: https://rclone.org/downloads/.")
 
 
 @click.command()
