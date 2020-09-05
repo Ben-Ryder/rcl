@@ -20,6 +20,13 @@ def cli():
     pass
 
 
+@click.command('setup')
+def setup():
+    """Install rclone and run the initial config setup."""
+    os.system("curl https://rclone.org/install.sh | sudo bash")
+    os.system("rclone config")
+
+
 @click.command()
 @click.argument('entry_id')
 @click.argument('local_path')
@@ -108,6 +115,7 @@ def diff(entry_id):
     os.system("rclone check %s %s --dry-run" % (entry['local'], entry['remote']))
 
 
+cli.add_command(setup)
 cli.add_command(add)
 cli.add_command(remove)
 cli.add_command(view_entries)
