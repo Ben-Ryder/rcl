@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import os
+import pkg_resources
 
 import click
 import helpers
@@ -14,6 +15,7 @@ def echo_data(data):
 
 
 @click.group()
+@click.version_option(pkg_resources.get_distribution("rcl").version)
 def cli():
     pass
 
