@@ -51,11 +51,12 @@ def add(entry_id, local_path, remote_path):
 @click.argument('entry_id')
 def remove(entry_id):
     """Remove an entry."""
-    try:
-        helpers.remove_entry(entry_id)
-        click.echo("Deleted entry: %s" % entry_id)
-    except KeyError:
+    if not helpers.entry_exists(entry_id):
         click.echo("ERROR: No entry found with id: %s." % entry_id)
+        return
+
+    helpers.remove_entry(entry_id)
+    click.echo("Deleted entry: %s" % entry_id)
 
 
 @click.command('view')
@@ -70,6 +71,10 @@ def view_entries(entry_id):
             click.echo("[%s]" % entry_id)
             echo_data(entry_data)
             click.echo("\n")
+
+    elif not helpers.entry_exists(entry_id):
+        click.echo("ERROR: No entry found with id: %s." % entry_id)
+        return
 
     else:
         click.echo("[entries.%s]" % entry_id)
@@ -88,6 +93,10 @@ def open_config():
 @click.option('--dry/--execute', default=False, help='Run rclone sync with --dry-run flag.')
 def pull(entry_id, dry):
     """Sync local to match remote."""
+    if not helpers.entry_exists(entry_id):
+        click.echo("ERROR: No entry found with id: %s." % entry_id)
+        return
+
     config = helpers.load_config()
     entry = config['entries'][entry_id]
 
@@ -102,6 +111,10 @@ def pull(entry_id, dry):
 @click.option('--dry/--execute', default=False, help='Run rclone sync with --dry-run flag.')
 def push(entry_id, dry):
     """Sync remote to match local."""
+    if not helpers.entry_exists(entry_id):
+        click.echo("ERROR: No entry found with id: %s." % entry_id)
+        return
+
     config = helpers.load_config()
     entry = config['entries'][entry_id]
 
@@ -114,11 +127,15 @@ def push(entry_id, dry):
 @click.command()
 @click.argument('entry_id')
 def diff(entry_id):
+    if not helpers.entry_exists(entry_id):
+        click.echo("ERROR: No entry found with id: %s." % entry_id)
+        return
+
     """Show the difference between the local and remote."""
     config = helpers.load_config()
     entry = config['entries'][entry_id]
 
-    os.system("rclone check %s %s --dry-run" % (entry['local'], entry['remote']))
+    os.system("rclone check %s %s" % (entry['local'], entry['remote']))
 
 
 cli.add_command(setup)

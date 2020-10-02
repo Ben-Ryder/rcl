@@ -22,6 +22,11 @@ def load_config():
     return toml.load(CONFIG_FILE)
 
 
+def entry_exists(entry_id):
+    config = load_config()
+    return entry_id in config['entries'].keys()
+
+
 def add_entry(entry):
     config = load_config()
     config['entries'][entry['id']] = entry
