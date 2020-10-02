@@ -92,9 +92,9 @@ def pull(entry_id, dry):
     entry = config['entries'][entry_id]
 
     if dry:
-        os.system("rclone sync %s %s --dry-run" % (entry['remote'], entry['local']))
+        os.system("rclone sync '%s' '%s' --dry-run" % (entry['remote'], entry['local']))
     else:
-        os.system("rclone sync %s %s --progress" % (entry['remote'], entry['local']))
+        os.system("rclone sync '%s' '%s' --progress" % (entry['remote'], entry['local']))
 
 
 @click.command()
@@ -106,9 +106,9 @@ def push(entry_id, dry):
     entry = config['entries'][entry_id]
 
     if dry:
-        os.system("rclone sync %s %s --dry-run" % (entry['local'], entry['remote']))
+        os.system("rclone sync '%s' '%s' --dry-run" % (entry['local'], entry['remote']))
     else:
-        os.system("rclone sync %s %s  --progress" % (entry['local'], entry['remote']))
+        os.system("rclone sync '%s' '%s'  --progress" % (entry['local'], entry['remote']))
 
 
 @click.command()
@@ -118,7 +118,7 @@ def diff(entry_id):
     config = helpers.load_config()
     entry = config['entries'][entry_id]
 
-    os.system("rclone check %s %s --dry-run" % (entry['local'], entry['remote']))
+    os.system("rclone check '%s' '%s' --dry-run" % (entry['local'], entry['remote']))
 
 
 cli.add_command(setup)
